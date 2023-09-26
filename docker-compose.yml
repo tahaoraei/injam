@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: taha
+      POSTGRES_PASSWORD: example
+      POSTGRES_DBNAME: location
+    ports:
+      - "5001:5001"
