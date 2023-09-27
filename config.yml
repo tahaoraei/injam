@@ -1,0 +1,11 @@
+type: yml
+
+http_server:
+  port: 8088
+
+postgres:
+  host: localhost
+  port: 5001
+#  user: postgres
+#  password: example
+  dbname: location
