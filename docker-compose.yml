@@ -1,12 +1,11 @@
 version: '3.8'
 
 services:
-  postgres:
+  injam-database:
     image: postgres
     restart: always
     environment:
       POSTGRES_USER: taha
       POSTGRES_PASSWORD: example
-      POSTGRES_DBNAME: location
     ports:
-      - "5001:5001"
+      - 5432:5432

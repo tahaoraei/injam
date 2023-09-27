@@ -8,14 +8,10 @@ import (
 )
 
 func main() {
-	cfg := config.Config{
-		Postgres:    postgres.Config{},
-		UserService: userservice.Config{},
-		HTTPSever:   httpserver.Config{Port: 8088},
-	}
+	cfg := config.Load("config.yml")
 
 	repo := postgres.New(cfg.Postgres)
-	userSvc := userservice.New(cfg.UserService, repo)
+	userSvc := userservice.New(repo)
 
 	server := httpserver.New(cfg.HTTPSever, userSvc)
 	server.Start()

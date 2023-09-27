@@ -9,7 +9,7 @@ import (
 )
 
 type Config struct {
-	Port uint
+	Port uint `koanf:"port"`
 }
 
 type Server struct {
@@ -18,10 +18,7 @@ type Server struct {
 	Router      *echo.Echo
 }
 
-func New(
-	config Config,
-	userSvc userservice.Service,
-) Server {
+func New(config Config, userSvc userservice.Service) Server {
 	return Server{
 		config:      config,
 		userHandler: userserver.New(userSvc),
@@ -30,9 +27,7 @@ func New(
 }
 
 func (s Server) Start() {
-
 	s.Router.GET("/health-check", s.healthCheckHandler)
-
 	s.userHandler.SetRoute(s.Router)
 
 	address := fmt.Sprintf(":%d", s.config.Port)

@@ -11,10 +11,10 @@ import (
 
 func Load(path string) Config {
 	var k = koanf.New(".")
-	k.Load(file.Provider(path), yaml.Parser())
 	k.Load(env.Provider("INJAM_", ".", func(s string) string {
 		return strings.Replace(strings.ToLower(strings.TrimPrefix(s, "INJAM_")), "_", ".", -1)
 	}), nil)
+	k.Load(file.Provider(path), yaml.Parser())
 
 	var cfg Config
 	if err := k.Unmarshal("", &cfg); err != nil {
