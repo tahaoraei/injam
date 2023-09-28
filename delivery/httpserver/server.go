@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"injam/delivery/httpserver/userserver"
+	"injam/pkg/validator"
 	"injam/service/userservice"
 	"log"
 )
@@ -13,16 +14,18 @@ type Config struct {
 }
 
 type Server struct {
-	config      Config
-	userHandler userserver.Handler
-	Router      *echo.Echo
+	config       Config
+	userHandler  userserver.Handler
+	validatorSvc validator.Validator
+	Router       *echo.Echo
 }
 
-func New(config Config, userSvc userservice.Service) Server {
+func New(config Config, userSvc userservice.Service, validatorSvc validator.Validator) Server {
 	return Server{
-		config:      config,
-		userHandler: userserver.New(userSvc),
-		Router:      echo.New(),
+		config:       config,
+		userHandler:  userserver.New(userSvc, validatorSvc),
+		validatorSvc: validatorSvc,
+		Router:       echo.New(),
 	}
 }
 

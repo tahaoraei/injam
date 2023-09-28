@@ -14,6 +14,10 @@ func (h Handler) register(c echo.Context) error {
 		return err
 	}
 
+	if err := h.validatorSvc.Register(req); err != nil {
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "can't validate user"})
+	}
+
 	// add claim and jwk
 	resp, err := h.userSvc.RegisterUser(c.Request().Context(), req)
 	if err != nil {
