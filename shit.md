@@ -1,10 +1,10 @@
-validator
-jwk refresh token claim
-login
-profile bearer
 koanf
+password hashing
+validator phone uniqueness
+login
+
+jwk refresh token claim
+profile bearer
 middleware
 authentication
-phone uniqueness
-password hashing
 
