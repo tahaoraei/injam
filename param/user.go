@@ -11,3 +11,13 @@ type UserRegisterResponse struct {
 	PhoneNumber string `json:"phone_number"`
 	Name        string `json:"name"`
 }
+
+type UserLoginRequest struct {
+	PhoneNumber string `json:"phone_number"`
+	Password    string `json:"password"`
+}
+
+type UserLoginResponse struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
