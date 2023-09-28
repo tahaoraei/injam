@@ -18,6 +18,16 @@ type UserLoginRequest struct {
 }
 
 type UserLoginResponse struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Token string `json:"access_token"`
+}
+
+type UserProfileRequest struct {
+	ID int `json:"id"`
+}
+
+type UserProfileResponse struct {
+	Name        string `json:"name"`
+	PhoneNumber string `json:"phone_number"`
 }

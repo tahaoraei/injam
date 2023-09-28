@@ -16,5 +16,10 @@ func (h Handler) login(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "can't validate user"})
 	}
 
-	return c.String(http.StatusOK, "login :)")
+	resp, err := h.userSvc.Login(req)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, "cant login user service")
+	}
+
+	return c.JSON(http.StatusOK, resp)
 }

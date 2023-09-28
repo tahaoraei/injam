@@ -32,3 +32,19 @@ func (db *DB) IsPhoneNumberUnique(number string) (bool, error) {
 	}
 	return false, nil
 }
+
+func (db *DB) GetUserByPhoneNumber(phone string) (entity.User, error) {
+	var u entity.User
+	if err := db.db.QueryRow(`select id, phone_number, name, password from users where phone_number = $1`, phone).Scan(&u.ID, &u.PhoneNumber, &u.Name, &u.Password); err != nil {
+		return u, err
+	}
+	return u, nil
+}
+
+func (db *DB) GetUserByID(id int) (entity.User, error) {
+	var u entity.User
+	if err := db.db.QueryRow(`select id, phone_number, name, password from users where id = $1`, id).Scan(&u.ID, &u.PhoneNumber, &u.Name, &u.Password); err != nil {
+		return u, err
+	}
+	return u, nil
+}
