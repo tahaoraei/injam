@@ -9,3 +9,8 @@ postgres:
 #  user: postgres
   password: example
 #  dbname: location
+
+redis:
+  address: localhost
+  port: 6380
+  db: 0

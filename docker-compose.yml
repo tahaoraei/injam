@@ -9,3 +9,19 @@ services:
       POSTGRES_PASSWORD: example
     ports:
       - 5432:5432
+
+  injam-redis:
+    image: bitnami/redis:6.2
+    container_name: injam-redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --loglevel warning --protected-mode no --save "" --appendonly no
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - injam-redis-data:/data
+
+volumes:
+  dbdata:
+  injam-redis-data:
