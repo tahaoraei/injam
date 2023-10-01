@@ -12,5 +12,5 @@ postgres:
 
 redis:
   address: localhost
-  port: 6380
+  port: 6379
   db: 0
