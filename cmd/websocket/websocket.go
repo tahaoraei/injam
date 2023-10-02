@@ -22,7 +22,14 @@ func hello(c echo.Context) error {
 			if err != nil {
 				// handle error
 			}
-			msg1 := string(msg[:]) + "response"
+			u := c.Request().Header.Get("Authorization")
+			//for key, values := range c.Request().Header {
+			//	fmt.Println(key)
+			//	for _, value := range values {
+			//		fmt.Println(value)
+			//	}
+			//}
+			msg1 := string(msg[:]) + u
 			err = wsutil.WriteServerMessage(conn, op, []byte(msg1))
 			if err != nil {
 				// handle error
