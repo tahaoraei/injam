@@ -7,6 +7,7 @@ import (
 	"injam/delivery/httpserver/userserver"
 	"injam/delivery/httpserver/websocketserver"
 	"injam/pkg/validator"
+	"injam/service/authorizationservice"
 	"injam/service/authservice"
 	"injam/service/locationservice"
 	"injam/service/userservice"
@@ -30,13 +31,14 @@ func New(
 	userSvc userservice.Service,
 	validatorSvc validator.Validator,
 	authSvc authservice.Service,
+	authorizationSvc authorizationservice.Service,
 	locationSvc locationservice.Service,
 	redisAdapter redis.Adapter,
 ) Server {
 	return Server{
 		config:       config,
 		userHandler:  userserver.New(userSvc, validatorSvc, authSvc),
-		odHandler:    websocketserver.New(redisAdapter, locationSvc),
+		odHandler:    websocketserver.New(redisAdapter, locationSvc, authSvc, authorizationSvc),
 		validatorSvc: validatorSvc,
 		Router:       echo.New(),
 	}

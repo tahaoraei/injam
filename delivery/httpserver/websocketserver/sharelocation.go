@@ -14,8 +14,8 @@ func (h Handler) shareLocation(c echo.Context) error {
 		return err
 	}
 
-	id := c.Param("id")
-	subscriber := h.redisAdapter.Client().Subscribe(context.Background(), fmt.Sprintf("taha%s", id))
+	pub_id := c.Param("id")
+	subscriber := h.redisAdapter.Client().Subscribe(context.Background(), fmt.Sprintf("taha%s", pub_id))
 
 	go func() {
 		defer conn.Close()

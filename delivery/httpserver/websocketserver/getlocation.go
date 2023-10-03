@@ -6,8 +6,8 @@ import (
 	"github.com/gobwas/ws"
 	"github.com/gobwas/ws/wsutil"
 	"github.com/labstack/echo/v4"
+	"injam/service/authservice"
 	"log/slog"
-	"strings"
 )
 
 func (h Handler) getLocation(c echo.Context) error {
@@ -15,8 +15,7 @@ func (h Handler) getLocation(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	u := strings.Replace(c.Request().Header.Get("Authorization"), "Basic ", "", 1)
-
+	u := c.Get("my_claims").(*authservice.Claims)
 	go func() {
 		defer conn.Close()
 
@@ -24,7 +23,7 @@ func (h Handler) getLocation(c echo.Context) error {
 			msg, _, err := wsutil.ReadClientData(conn)
 			if err != nil {
 			}
-			if err = h.redisAdapter.Client().Publish(context.Background(), fmt.Sprintf("taha:%s", u), string(msg[:])).Err(); err != nil {
+			if err = h.redisAdapter.Client().Publish(context.Background(), fmt.Sprintf("taha:%d", u.UserID), string(msg[:])).Err(); err != nil {
 				slog.Error("cant save data in memory")
 			}
 		}

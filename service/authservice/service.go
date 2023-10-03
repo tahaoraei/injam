@@ -14,7 +14,6 @@ const (
 type Claims struct {
 	jwt.RegisteredClaims
 	UserID int
-	Name   string
 }
 
 type Service struct {

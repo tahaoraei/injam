@@ -7,6 +7,7 @@ import (
 	"injam/pkg/validator"
 	"injam/repository/postgres"
 	"injam/repository/redis/redislocation"
+	"injam/service/authorizationservice"
 	"injam/service/authservice"
 	"injam/service/locationservice"
 	"injam/service/userservice"
@@ -26,6 +27,8 @@ func main() {
 	inMemoryRepo := redislocation.New(redisAdapter)
 	locationSvc := locationservice.New(inMemoryRepo)
 
-	server := httpserver.New(cfg.HTTPSever, userSvc, validatorSvc, authSvc, locationSvc, redisAdapter)
+	authorizationSvc := authorizationservice.New(repo)
+
+	server := httpserver.New(cfg.HTTPSever, userSvc, validatorSvc, authSvc, authorizationSvc, locationSvc, redisAdapter)
 	server.Start()
 }
